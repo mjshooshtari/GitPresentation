@@ -1,0 +1,20 @@
+name: Thank You Pull Request
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thanks for your pull request! We appreciate your contribution."
+            })
